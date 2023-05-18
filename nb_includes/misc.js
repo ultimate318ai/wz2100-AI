@@ -12,7 +12,7 @@ function distanceToBase(loc) {
 }
 
 function canReachFromBase(propulsion, location) {
-    if (defined(propulsion)) {
+    if (_math.defined(propulsion)) {
         return propulsionCanReach(propulsion, baseLocation.x, baseLocation.y, location.x, location.y);
     }
 }

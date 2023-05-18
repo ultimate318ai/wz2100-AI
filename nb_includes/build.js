@@ -42,7 +42,7 @@ var _build = {
             return BUILDRET.FAILURE;
         }
         var moduleInfo = modules.filter((item) => (isAvailable(item.module) && item.base === struct.stattype)).last();
-        if (!defined(moduleInfo)) {
+        if (!_math.defined(moduleInfo)) {
             return BUILDRET.UNAVAILABLE;
         }
         if (struct.modules >= moduleInfo.count) {
@@ -60,7 +60,7 @@ var _build = {
     buildBasicStructure: function (statlist, importance) {
         if (_intensity.throttled(5000, statlist[0])) return BUILDRET.FAILURE;
         // by default, don't try building things in dangerous locations
-        if (!defined(importance))
+        if (!_math.defined(importance))
             importance = IMPORTANCE.MANDATORY;
         var trucks = this.getTwoFreeTrucks();
         if (trucks.length <= 0)
@@ -82,7 +82,7 @@ var _build = {
             }
         if (!avail)
             return BUILDRET.UNAVAILABLE;
-        if (!defined(loc))
+        if (!_math.defined(loc))
             return BUILDRET.FAILURE;
         if (importance === IMPORTANCE.PEACETIME && !this.safeSpot(loc.x, loc.y))
             return BUILDRET.FAILURE;
@@ -103,7 +103,7 @@ var _build = {
             if (item.stattype === RESOURCE_EXTRACTOR)
                 return;
             var truck = getFreeTruckAround(item.x, item.y);
-            if (!defined(truck))
+            if (!_math.defined(truck))
                 return;
             if (orderDroidObj(truck, DORDER_HELPBUILD, item))
                 success = true;
@@ -111,10 +111,10 @@ var _build = {
         return success;
     },
     buildStructureAround: function (statlist, loc, unique) {
-        if (!defined(statlist))
+        if (!_math.defined(statlist))
             return BUILDRET.UNAVAILABLE;
         var truck = this.getFreeTruckAround(loc.x, loc.y);
-        if (!defined(truck))
+        if (!_math.defined(truck))
             return BUILDRET.FAILURE;
         var stat = statlist.filter(isAvailable).filter((s) => {
             if (unique !== true)
@@ -125,10 +125,10 @@ var _build = {
                     return false;
             return true;
         }).last();
-        if (!defined(stat))
+        if (!_math.defined(stat))
             return BUILDRET.UNAVAILABLE;
         var loc2 = pickStructLocation(truck, stat, loc.x, loc.y);
-        if (!defined(loc2))
+        if (!_math.defined(loc2))
             return BUILDRET.FAILURE;
         // if we're not into turtling, don't build too many towers
         if (personality.defensiveness < 100 && _math.distance(loc2, loc) > baseScale / 5)
@@ -138,13 +138,13 @@ var _build = {
         return BUILDRET.FAILURE;
     },
     captureOil: function (oil) {
-        if (!defined(oil))
+        if (!_math.defined(oil))
             return BUILDRET.FAILURE;
         var truck = this.getFreeTruckAround(oil.x, oil.y);
-        if (!defined(truck))
+        if (!_math.defined(truck))
             return BUILDRET.FAILURE;
         var stat = structures.derricks.filter(isAvailable).last();
-        if (!defined(stat))
+        if (!_math.defined(stat))
             return BUILDRET.UNAVAILABLE;
         if (_intensity.throttled(90000, oil.y * mapWidth + oil.x))
             return BUILDRET.FAILURE;

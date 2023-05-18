@@ -16,9 +16,9 @@
 var _intensity = {
 
     throttled: function (interval, notes) {
-        if (!defined(debugGetCallerFuncObject().throttleTimes))
+        if (!_math.defined(debugGetCallerFuncObject().throttleTimes))
             debugGetCallerFuncObject().throttleTimes = {};
-        if (!defined(debugGetCallerFuncObject().throttleTimes[notes])) {
+        if (!_math.defined(debugGetCallerFuncObject().throttleTimes[notes])) {
             debugGetCallerFuncObject().throttleTimes[notes] = gameTime;
             return false;
         }
@@ -39,14 +39,14 @@ var _intensity = {
     // add necessary notes to the cached() call if necessary, similar to how you do it
     // for throttled().
     // NOTE: it won't work if the function repeatedly dies and gets created again, eg.
-    // a function defined inside forEach((...) => {...}) can't have caching inside
+    // a function _math.defined inside forEach((...) => {...}) can't have caching inside
     cached: function (whatToCall, interval, notes) {
-        if (!defined(debugGetCallerFuncObject().cachedTimes)) {
+        if (!_math.defined(debugGetCallerFuncObject().cachedTimes)) {
             debugGetCallerFuncObject().cachedTimes = {};
             debugGetCallerFuncObject().cachedValues = {};
         }
         var t = debugGetCallerFuncObject().cachedTimes[notes];
-        if (!defined(t) || gameTime - t >= interval) {
+        if (!_math.defined(t) || gameTime - t >= interval) {
             debugGetCallerFuncObject().cachedValues[notes] = whatToCall();
             debugGetCallerFuncObject().cachedTimes[notes] = gameTime;
         }
@@ -73,9 +73,9 @@ var _intensity = {
     // NOTE: in this example functions of the list don't need to be global, but
     // doManyThings does, otherwise the queue call will fail.
     functionSeries: function (id, list) {
-        if (!defined(functionSeries.last))
+        if (!_math.defined(functionSeries.last))
             functionSeries.last = {};
-        if (!defined(functionSeries.last[id]))
+        if (!_math.defined(functionSeries.last[id]))
             functionSeries.last[id] = 0;
         else
             ++functionSeries.last[id];

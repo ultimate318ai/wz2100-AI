@@ -58,7 +58,7 @@ function eventAttacked(victim, attacker) {
     if (isAlly(attacker.player))
         return; // don't respond to accidental friendly fire
     if (victim.type === DROID) {
-        if (!isVTOL(victim) && defined(victim.group)) {
+        if (!isVTOL(victim) && _math.defined(victim.group)) {
             _tactics.fallBack(victim, attacker);
             _tactics.setTarget(attacker, victim.group);
             _tactics.touchGroup(victim.group);

@@ -22,7 +22,7 @@ var _research = {
         return PROPULSIONUSAGE.GROUND;
     },
     doResearch: function (lab) {
-        if (defined(forcedResearch)) {
+        if (_math.defined(forcedResearch)) {
             if (forcedResearch === null) { return false; }
             if (pursueResearch(lab, forcedResearch)) { return true; }
         }
@@ -40,7 +40,7 @@ var _research = {
                 fastestResearch,
             ].random())) { return true; }
         // otherwise, start with completing the fixed research path
-        if (defined(personality.earlyResearch) && pursueResearch(lab, personality.earlyResearch)) {
+        if (_math.defined(personality.earlyResearch) && pursueResearch(lab, personality.earlyResearch)) {
             return true;
         }
         // then, see if we want to research some weapons

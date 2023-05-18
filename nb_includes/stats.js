@@ -40,13 +40,13 @@ var _stats = {
     },
     enumStructList: function (list, player) {
         if (list instanceof Array && player instanceof String) {
-            if (!defined(player))
+            if (!_math.defined(player))
                 player = me;
             return list.reduce((summ, new_value) => (summ.concat(enumStruct(player, new_value))), []);
         }
     },
     countStructList: function (list, player) {
-        if (!defined(player))
+        if (!_math.defined(player))
             player = me;
         return list.reduce((summ, new_value) => (summ + countStruct(new_value, player)), 0);
     },
@@ -94,7 +94,7 @@ var _stats = {
     },
     guessBodyArmor: function (name) {
         var body = bodyStats.filterProperty("stat", name).last()
-        if (defined(body))
+        if (_math.defined(body))
             return body.armor;
         else
             niceDebug("Ruleset warning: Couldn't guess body class of", name);
@@ -119,7 +119,7 @@ var _stats = {
         }
     },
     getProductionPaths: function () {
-        if (!defined(fallbackWeapon) || gameTime > 600000)
+        if (!_math.defined(fallbackWeapon) || gameTime > 600000)
             return personality.weaponPaths;
         return [weaponStats[fallbackWeapon]].concat(personality.weaponPaths);
     },
@@ -151,7 +151,7 @@ var _stats = {
         return statsToResList(filterDataByFlag(propulsionStats, 'usage', usage));
     },
     weaponStatsToResList: function (path, objType) {
-        if (!defined(path))
+        if (!_math.defined(path))
             return new Array();
         var ret = new Array();
         switch (objType) {
@@ -177,7 +177,7 @@ var _stats = {
     },
     filterBodyStatsByUsage: function (usage, armor) {
         var data;
-        data = defined(armor) ? this.filterDataByFlag(bodyStats, 'armor', armor) : bodyStats
+        data = _math.defined(armor) ? this.filterDataByFlag(bodyStats, 'armor', armor) : bodyStats
         return this.filterDataByFlag(data, 'usage', usage).reverse();
     },
     getPropulsionStatsComponents: function (usage) {
@@ -185,11 +185,11 @@ var _stats = {
         return data.map((val) => (val.stat)).reverse()
     },
     weaponStatsToDefenses: function (stats, defrole) {
-        if (!defined(stats))
+        if (!_math.defined(stats))
             return [];
         var ret = [];
         for (let i = 0; i < stats.defenses.length; ++i)
-            if (!defined(defrole) || stats.defenses[i].defrole === defrole)
+            if (!_math.defined(defrole) || stats.defenses[i].defrole === defrole)
                 ret.push(stats.defenses[i].stat);
         // reverse not needed here
         return ret;

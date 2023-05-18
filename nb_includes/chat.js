@@ -40,7 +40,7 @@ var _chat = {
     },
     findBeaconPlayer: function (x, y) {
         for (let i = 0; i < beaconInfo.length; ++i)
-            if (defined(beaconInfo[i]) && beaconInfo[i].x === x && beaconInfo[i].y === y)
+            if (_math.defined(beaconInfo[i]) && beaconInfo[i].x === x && beaconInfo[i].y === y)
                 return i;
         return null;
     },
@@ -61,7 +61,7 @@ var _chat = {
             return;
         var command = result[1];
         var argument = result[2];
-        if (defined(commandMap[command]))
+        if (_math.defined(commandMap[command]))
             chat(sender, commandMap[command](sender, argument));
     },
     chatWho: function (sender, argument) {
@@ -103,7 +103,7 @@ var _chat = {
         var str = " cl no fn";
         for (const i in weaponStats) {
             if (weaponStats[i].chatalias === argument) {
-                _research.setForcedResearch(weaponStatsToResList(weaponStats[i]));
+                _research.setForcedResearch(_stats.weaponStatsToResList(weaponStats[i]));
                 return _("Researching ") + weaponStats[i].chatalias;
             }
             if (weaponStats[i].chatalias.indexOf("useless") < 0)
@@ -113,7 +113,7 @@ var _chat = {
     },
     chatTruck: function (sender, argument) {
         var droid = enumTrucks().random();
-        if (!defined(droid))
+        if (!_math.defined(droid))
             return _("Sorry, I have no trucks.");
         if (donateObject(droid, sender)) {
             addBeacon(droid.x, droid.y, sender);
@@ -127,7 +127,7 @@ var _chat = {
         return _("Power transferred.");
     },
     chatHelp: function (sender, argument) {
-        if (!defined(beaconInfo[sender]) || !beaconInfo[sender].exists)
+        if (!_math.defined(beaconInfo[sender]) || !beaconInfo[sender].exists)
             return _("Please put a beacon!");
         if (_tactics.setTarget({ x: beaconInfo[sender].x, y: beaconInfo[sender].y, type: POSITION }))
             return _("Coming!");
