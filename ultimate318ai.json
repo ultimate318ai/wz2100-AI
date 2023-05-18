@@ -1,0 +1,13 @@
+{
+    "AI": {
+        "js": "UltimateAI/ultimate318ai.js",
+        "name": "Ultimate 318 AI",
+        "tip": "IA designed by ultimate 318 AI, have fun",
+        "easy_tip": "Gets only basic units and def structures",
+        "medium_tip": "Once attacked or after some time, got some better unit available",
+        "insane_tip": "Get crazy... you little fool!",
+        "wins": 1,
+        "losses": 998,
+        "draws": 1
+    }
+}
