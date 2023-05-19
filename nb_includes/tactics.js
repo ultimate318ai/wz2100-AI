@@ -4,8 +4,8 @@
  *
  */
 var MAX_GROUPS = maxPlayers;
-var miscGroup = () => { return MAX_GROUPS };
-var vtolGroup = () => { return miscGroup + 1 };
+var miscGroup = MAX_GROUPS;
+var vtolGroup = miscGroup + 1;
 
 var groupInfo = [];
 var firstTimeHarass = true;
