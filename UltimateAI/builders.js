@@ -5,14 +5,12 @@ function groupBuilders(droid) {
     var buildersMainLen = groupSize(buildersMain);
     var buildersHuntersLen = groupSize(buildersHunters);
 
-    //распределяем строителей по группам
     if (droid) {
 
         if (!earlyGame && getNearFreeResources.length > 0 && buildersHuntersLen === 0) { groupAdd(buildersHunters, droid); debugMsg("+....buildersHunters +1", 'group'); }
         else if (policy['build'] !== 'rich' && earlyGame && distBetweenTwoPoints_p(base.x, base.y, droid.x, droid.y) < base_range && buildersMainLen < 2) { groupAdd(buildersMain, droid); debugMsg("buildersMain +1", 'group'); }
         else if (policy['build'] !== 'rich' && earlyGame && distBetweenTwoPoints_p(base.x, base.y, droid.x, droid.y) > base_range) { groupAdd(buildersHunters, droid); debugMsg("...buildersHunters +1", 'group'); }
         else if ((distBetweenTwoPoints_p(base.x, base.y, droid.x, droid.y) > base_range || (earlyGame && buildersHuntersLen < 2)) && buildersMainLen >= 2 && policy['build'] !== 'rich') { groupAdd(buildersHunters, droid); debugMsg("....buildersHunters +1", 'group'); }
-        //Если основных строителей меньше минимальных, то добавляем новичка в группу основных строителей
         else if (buildersMainLen < minBuilders || factory_ready.length === 0) { groupAdd(buildersMain, droid); debugMsg("buildersMain +1", 'group'); }
         //Если нет строителей-охотников, то добавляем к ним новичка
         else if (buildersHuntersLen < 1) { groupAdd(buildersHunters, droid); debugMsg(".buildersHunters +1", 'group'); }
@@ -24,58 +22,50 @@ function groupBuilders(droid) {
 
 
 //Подсчитываем постройки на базе
-var factory, power_gen, resource_extractor, research_lab, hq, cyborg_factory, vtol_factory, rearm_pad, uplink_center, lassat, ccontrol, repfac;
-var factory_ready, power_gen_ready, resource_extractor_ready, research_lab_ready, hq_ready, cyborg_factory_ready, vtol_factory_ready, rearm_pad_ready, uplink_center_ready, lassat_ready, ccontrol_ready, repfac_ready;
+var factory, baba_repair, baba_rearm_pad, baba_factory, power_gen, baba_power_gen, baba_vtol_factory, resource_extractor, research_lab, hq, cyborg_factory, vtol_factory, rearm_pad, uplink_center, lassat, ccontrol, repfac;
+var baba_repair_ready, baba_rearm_pad_ready, baba_vtol_factory_ready, baba_power_gen_ready, baba_factory_ready, factory_ready, power_gen_ready, resource_extractor_ready, research_lab_ready, hq_ready, cyborg_factory_ready, vtol_factory_ready, rearm_pad_ready, uplink_center_ready, lassat_ready, ccontrol_ready, repfac_ready;
 var se_r = 0; //Resource extractor length
 
 
 function checkBase() {
     factory = enumStruct(me, FACTORY);
+    baba_factory = enumStruct(me, BABA_FACTORY);
     power_gen = enumStruct(me, POWER_GEN);
+    baba_power_gen = enumStruct(me, BABA_POWER_GEN);
     resource_extractor = enumStruct(me, RESOURCE_EXTRACTOR);
     research_lab = enumStruct(me, RESEARCH_LAB);
     hq = enumStruct(me, HQ);
     cyborg_factory = enumStruct(me, CYBORG_FACTORY);
     vtol_factory = enumStruct(me, VTOL_FACTORY);
+    baba_vtol_factory = enumStruct(me, BABA_VTOL_FACTORY);
     rearm_pad = enumStruct(me, REARM_PAD);
+    baba_rearm_pad = enumStruct(me, BABA_REARM_PAD)
     uplink_center = enumStruct(me, SAT_UPLINK);
     lassat = enumStruct(me, "A0LasSatCommand"); // LASSAT don't work
     ccontrol = enumStruct(me, COMMAND_CONTROL);
     repfac = enumStruct(me, REPAIR_FACILITY);
+    baba_repair = enumStruct(me, BABA_REPAIR_FACILITY);
 
     factory_ready = factory.filter((e) => (e.status === BUILT));
+    baba_factory_ready = baba_factory.filter((e) => (e.status === BUILT));
     power_gen_ready = power_gen.filter((e) => (e.status === BUILT));
+    baba_power_gen_ready = baba_power_gen.filter((e) => (e.status === BUILT));
     resource_extractor_ready = resource_extractor.filter((e) => (e.status === BUILT));
     se_r = resource_extractor_ready.length;
     research_lab_ready = research_lab.filter((e) => (e.status === BUILT));
     hq_ready = hq.filter((e) => (e.status === BUILT));
     cyborg_factory_ready = cyborg_factory.filter((e) => (e.status === BUILT));
     vtol_factory_ready = vtol_factory.filter((e) => (e.status === BUILT));
+    baba_vtol_factory_ready = baba_vtol_factory.filter((e) => (e.status === BUILT));
     rearm_pad_ready = rearm_pad.filter((e) => (e.status === BUILT));
+    baba_rearm_pad_ready = baba_rearm_pad.filter((e) => (e.status === BUILT));
     uplink_center_ready = uplink_center.filter((e) => (e.status === BUILT));
     lassat_ready = lassat.filter((e) => (e.status === BUILT));
     ccontrol_ready = ccontrol.filter((e) => (e.status === BUILT));
     repfac_ready = repfac.filter((e) => (e.status === BUILT));
-
-
-    /*
-    debugMsg("checkBase(): factory="+factory_ready.length+"/"+factory.length
-    +"; power_gen="+power_gen_ready.length+"/"+power_gen.length
-    +"; resource_extractor="+resource_extractor_ready.length+"/"+resource_extractor.length
-    +"; research_lab="+research_lab_ready.length+"/"+research_lab.length
-    +"; cyborg_factory="+cyborg_factory_ready.length+"/"+cyborg_factory.length
-    +"; hq="+hq_ready.length+"/"+hq.length
-    +"; vtol_factory="+vtol_factory_ready.length+"/"+vtol_factory.length
-    );
-    */
-    /*
-        research_lab.forEach((e, i) => {
-            debugMsg("checkBase(): lab["+i+"] status:"+e.status );
-        });
-    */
+    baba_repair_ready = baba_repair.filter((e) => (e.status === BUILT));
 }
 
-//Строим базу
 function builderBuild(droid, structure, rotation, position) {
     if (typeof position === "undefined") position = false;
     var struct;
@@ -91,20 +81,20 @@ function builderBuild(droid, structure, rotation, position) {
         case "A0VTolFactory1": if (enumStruct(me, VTOL_FACTORY).length >= maxFactoriesVTOL) return false; struct = vtol_factory; break;
         case "A0VtolPad": if (enumStruct(me, REARM_PAD).length >= maxPads) return false; struct = rearm_pad; break;
         case "A0RepairCentre3": struct = repfac; break;
-        //		case "A0ResourceExtractor":struct = resource_extractor; break;
-        //		default: return false;
+        case BABA_FACTORY: if (enumStruct(me, BABA_FACTORY).length >= maxFactories) return false; struct = factory; break;
+        case BABA_POWER_GEN: if (enumStruct(me, BABA_POWER_GEN).length >= maxGenerators) return false; struct = power_gen; break;
+        case BABA_VTOL_FACTORY: if (enumStruct(me, BABA_VTOL_FACTORY).length >= maxFactoriesVTOL) return false; struct = vtol_factory; break;
+        case BABA_REARM_PAD: if (enumStruct(me, BABA_REARM_PAD).length >= maxPads) return false; struct = rearm_pad; break;
+        case BABA_REPAIR_FACILITY: struct = BABA_REPAIR_FACILITY; break;
     }
     var stop = false;
-    //Проверяем, если заданное здание уже кем-либо заложено и строится, просто едем помочь достроить
     if (struct.length > 0) {
         struct.forEach((obj) => {
-            //		debugMsg("builderBuild(): name="+obj.name+"; status="+obj.status);
             if (obj.status === BEING_BUILT) { orderDroidObj_p(droid, DORDER_HELPBUILD, obj); stop = true; return true; }
         });
     }
     if (stop) return true;
 
-    //Строим новое здание
     if (isStructureAvailable(structure, me)) {
 
         debugMsg('try ' + structure, 'builders');

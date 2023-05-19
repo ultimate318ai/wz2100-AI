@@ -469,8 +469,6 @@ function bc_eventDestroyed(obj) {
 }
 
 function bc_eventChat(sender, to, message) {
-    if (asPlayer) return;
-    //	debugMsg('from: '+sender+', to: '+to+', msg: '+message, 'chat')
     if (!release)
         switch (message) {
             case "disable buildersOrder":

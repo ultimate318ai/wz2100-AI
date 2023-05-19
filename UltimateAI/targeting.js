@@ -46,9 +46,6 @@ function targetVTOL() {
                     activateStructure(laser_sat[0], target[0]);
                     debugMsg('lassat fire on ' + target[0].x + 'x' + target[0].y, 'lassat');
                     lassat_charged = false;
-                    playerData.forEach((data, player) => {
-                        if (!asPlayer) chat(player, ' from ' + debugName + ': ' + chatting('lassat_fire'));
-                    });
                 }
             }
 

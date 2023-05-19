@@ -406,20 +406,6 @@ function gameStop(condition) {
                 _ally = player;
             }
         });
-        /*
-            Not working, due WZ Engine
-                var myDroids = enumDroid(me);
-                if (myDroids.length > 0 && _ally !== false) {
-                    myDroids.forEach((o) => {
-                        donateObject(o, _ally);
-                    });
-                }
-        */
-        if (running) {
-            playerData.forEach((data, player) => {
-                if (!asPlayer) chat(player, ' from ' + debugName + ': ' + chatting('kick'));
-            });
-        }
     }
     running = false;
 }
@@ -689,8 +675,7 @@ function getNumEnemies() {
 }
 
 function isHumanOverride() {
-    if (playerData[me].isHuman) return true;
-    return false;
+    return playerData[me].isHuman;
 }
 
 

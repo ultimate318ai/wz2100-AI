@@ -33,17 +33,21 @@ function iCanDesign() {
 
 var structures = {
     factories: ["A0LightFactory",],
+    baba_factories: ["A0BaBaFactory"],
     templateFactories: ["A0CyborgFactory",],
     vtolFactories: ["A0VTolFactory1",],
+    baba_vtolFactories: ["A0BaBaVtolFactory"],
     labs: ["A0ResearchFacility",],
     gens: ["A0PowerGenerator",],
+    baba_gens: ["A0BaBaPowerGenerator"],
     hqs: ["A0CommandCentre",],
     vtolPads: ["A0VtolPad",],
+    baba_vtolPads: ["A0BaBaVtolPad"],
     derricks: ["A0ResourceExtractor",],
     extras: ["A0RepairCentre3", "A0Sat-linkCentre", "A0LasSatCommand",],
+    baba_extras: ["ScavRepairCentre"],
     sensors: ["Sys-SensoTower02", "Sys-CB-Tower01", "Sys-RadarDetector01", "Sys-SensoTowerWS",],
 };
-
 const oilResources = ["OilResource",];
 
 const powerUps = ["OilDrum", "Crate"];
