@@ -1,4 +1,4 @@
-
+"use strict";
 /*
  * This file connects all remaining pieces of AI code together.
  * It shouldn't contain any code itself.
