@@ -5,6 +5,7 @@
         "tip": "IA designed by ultimate 318 AI, have fun",
         "easy_tip": "Gets only basic units and def structures",
         "medium_tip": "Once attacked or after some time, got some better unit available",
+        "hard_tip": "Will not let you hide!",
         "insane_tip": "Get crazy... you little fool!",
         "wins": 1,
         "losses": 998,
