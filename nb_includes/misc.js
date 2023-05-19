@@ -4,7 +4,7 @@
  *
  */
 
-const gateways = enumGateways();
+var gateways = enumGateways();
 var baseLocation = startPositions[me];
 
 function distanceToBase(loc) {
