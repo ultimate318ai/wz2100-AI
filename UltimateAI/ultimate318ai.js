@@ -600,6 +600,11 @@ function init() {
     letsRockThisFxxxingWorld();
 }
 function enableStandardIA() {
+    setTimer("buildersOrder", 1000);
+    queue("prepeareProduce", 2000);
+    queue("doResearch", 3000);
+    removeTimer("produceThings");
+
     if (rage === EASY) {
         setTimer("produceDroids", 10000 + me * 100);
         setTimer("produceVTOL", 12000 + me * 100);
@@ -643,15 +648,12 @@ function letsRockThisFxxxingWorld() {
     enumDroid(me, DROID_WEAPON).forEach((e) => { groupAdd(armyCyborgs, e); });
 
     setTimer("secondTick", 1000);
-    queue("buildersOrder", 1000);
-    queue("prepeareProduce", 2000);
-    queue("produceThings", 3000);
-    queue("doResearch", 3000);
     setTimer("longCycle", 120000);
-
+    setTimer("produceThings", 3000);
     running = true;
     setupScavenger();
     baba_eventStartLevel();
+
     if (rage === MEDIUM) {
         if (policy['build'] === 'rich') func_buildersOrder_timer = 5000 + me * 100;
     } else if (rage === HARD) {
@@ -929,7 +931,7 @@ function buildTower(droid) {
 }
 
 function buildThingsWithDroid(droid) {
-    const MAX_FACTORY_COUNT = 100;
+    const MAX_FACTORY_COUNT = 10;
 
     switch (random(7)) {
         case 0:
@@ -938,7 +940,7 @@ function buildThingsWithDroid(droid) {
             }
             break;
         case 1:
-            if ((countStruct(derrick) - (countStruct(gen) * 4)) > 0) {
+            if (countStruct(derrick) - (countStruct(gen) * 4)) {
                 buildStructure(droid, gen);
             }
             break;
@@ -1061,15 +1063,21 @@ function produceHelicopter(fac) {
 
 function produceThings() {
     if (atLimits()) {
+        console.log("aaaaaaaaa");
         return;
     }
 
-    var list = enumStruct(me, factoryBaba).concat(enumStruct(me, vtolfac));
+    var list = enumStruct(me, factoryBaba).concat(enumStruct(me, vtolfac)).concat(me, factory);
     for (let i = 0, len = list.length; i < len; ++i) {
         var fac = list[i];
 
-        if (structureIdle(fac) && fac.status === BUILT) {
-            if (fac.stattype === FACTORY) {
+        // if (structureIdle(fac) && fac.status === BUILT) {
+        if (fac.STATUS === BUILT) {
+            console.log("aaaaaaaaa bixq");
+            debugMsg("in produce Droid if", "error");
+            if (fac.stattype === BABA_FACTORY) {
+                console.log("aaaaaaaaa blblbl");
+                debugMsg("in produce Droid for", "error");
                 baba_produceDroid(fac);
             }
             else if (fac.stattype === VTOL_FACTORY) {
@@ -1077,6 +1085,7 @@ function produceThings() {
             }
         }
     }
+    return false;
 }
 
 function attackWithDroid(droid, target, force) {
